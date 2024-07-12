@@ -4,9 +4,8 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:scholar_chat/core/constants/theme.dart';
 import 'package:scholar_chat/core/widgets/custom_text_form_field.dart';
 import 'package:scholar_chat/view/register_screen.dart';
-
-import '../core/services/show_snackbar.dart';
-import 'home_screen.dart';
+import '../core/helpers/show_snackbar.dart';
+import 'chat_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login';
@@ -156,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
         password: password,
       );
       showSnackBar(context, "Success Login", Colors.green);
-      Navigator.pushReplacementNamed(context, HomeScreen.id);
+      Navigator.pushReplacementNamed(context, ChatScreen.id);
     }
     on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
