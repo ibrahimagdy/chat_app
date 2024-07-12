@@ -1,13 +1,10 @@
-import 'dart:math';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:scholar_chat/core/constants/theme.dart';
 import 'package:scholar_chat/core/widgets/custom_text_form_field.dart';
 import 'package:scholar_chat/view/login_screen.dart';
-
-import '../core/services/show_snackbar.dart';
+import '../core/helpers/show_snackbar.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String id = 'RegisterScreen';
@@ -145,8 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
     try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
