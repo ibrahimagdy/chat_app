@@ -31,14 +31,29 @@ class ChatScreen extends StatelessWidget{
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 18),
-            child: TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Send Message',
-                suffixIcon: const Icon(Icons.send, color: primaryColor),
-                border: buildBorder(),
-                enabledBorder: buildBorder(),
-                focusedBorder: buildBorder(),
-              ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: 'Send Message',
+                      suffixIcon: const Icon(Icons.send, color: primaryColor),
+                      border: buildBorder(),
+                      enabledBorder: buildBorder(),
+                      focusedBorder: buildBorder(),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                const CircleAvatar(
+                  radius: 24,
+                  backgroundColor: primaryColor,
+                  child: Icon(
+                    CupertinoIcons.mic_fill,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
