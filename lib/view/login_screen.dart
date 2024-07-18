@@ -155,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
         password: password,
       );
       showSnackBar(context, "Success Login", Colors.green);
-      Navigator.pushReplacementNamed(context, ChatScreen.id);
+      Navigator.pushReplacementNamed(context, ChatScreen.id, arguments: email);
     }
     on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

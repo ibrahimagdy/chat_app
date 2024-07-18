@@ -1,8 +1,9 @@
 class MessageModel{
   final String message;
-  MessageModel(this.message);
+  final String id;
+  MessageModel(this.message, this.id);
 
   factory MessageModel.fromJson(json){
-    return MessageModel(json['message']);
+    return MessageModel(json['message'], json['id']);
   }
 }

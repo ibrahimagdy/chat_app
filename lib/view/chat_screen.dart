@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scholar_chat/core/constants/theme.dart';
 import 'package:scholar_chat/core/widgets/chat_bubble.dart';
+import 'package:scholar_chat/core/widgets/opposite_chat_bubble.dart';
 import 'package:scholar_chat/model/message_model.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -22,6 +23,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var email = ModalRoute.of(context)?.settings.arguments;
     return StreamBuilder<QuerySnapshot>(
       stream: messages.orderBy('CreatedAt', descending: true).snapshots(),
       builder: (context, snapshot) {
@@ -48,9 +50,9 @@ class _ChatScreenState extends State<ChatScreen> {
                       controller: scrollController,
                       itemCount: messagesList.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return ChatBubble(
-                          message: messagesList[index],
-                        );
+                        return messagesList[index].id == email
+                            ? ChatBubble(message: messagesList[index])
+                            : OppositeChatBubble(message: messagesList[index]);
                       }),
                 ),
                 Padding(
@@ -66,6 +68,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             messages.add({
                               'message': data,
                               'CreatedAt': DateTime.now(),
+                              'id' : email,
                             });
                             controller.clear();
                             scrollController.animateTo(
