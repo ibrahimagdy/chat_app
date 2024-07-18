@@ -15,21 +15,21 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  CollectionReference messages =
-      FirebaseFirestore.instance.collection('messages');
+  CollectionReference messages = FirebaseFirestore.instance.collection('messages');
   TextEditingController controller = TextEditingController();
+  final scrollController = ScrollController();
+  final FocusNode focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: messages.orderBy('CreatedAt').snapshots(),
+      stream: messages.orderBy('CreatedAt', descending: true).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<MessageModel> messagesList = [];
-          for(int i = 0; i < snapshot.data!.docs.length; i++){
+          for (int i = 0; i < snapshot.data!.docs.length; i++) {
             messagesList.add(MessageModel.fromJson(snapshot.data!.docs[i]));
           }
-         // print(snapshot.data!.docs[1]['message']);
           return Scaffold(
             appBar: AppBar(
               title: Row(
@@ -44,6 +44,8 @@ class _ChatScreenState extends State<ChatScreen> {
               children: [
                 Expanded(
                   child: ListView.builder(
+                    reverse: true,
+                      controller: scrollController,
                       itemCount: messagesList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return ChatBubble(
@@ -59,12 +61,19 @@ class _ChatScreenState extends State<ChatScreen> {
                       Expanded(
                         child: TextFormField(
                           controller: controller,
+                          focusNode: focusNode,
                           onFieldSubmitted: (data) {
                             messages.add({
                               'message': data,
-                              'CreatedAt' : DateTime.now(),
+                              'CreatedAt': DateTime.now(),
                             });
                             controller.clear();
+                            scrollController.animateTo(
+                              0,
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeIn,
+                            );
+                            FocusScope.of(context).requestFocus(focusNode);
                           },
                           decoration: InputDecoration(
                             hintText: 'Send Message',
