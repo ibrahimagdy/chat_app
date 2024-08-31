@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scholar_chat/core/constants/routes.dart';
 import 'package:scholar_chat/cubit/login_cubit/login_cubit.dart';
+import 'package:scholar_chat/cubit/register_cubit/register_cubit.dart';
 import 'package:scholar_chat/view/splash_screen.dart';
 import 'firebase_options.dart';
 
@@ -19,8 +20,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LoginCubit(),
+        ),
+        BlocProvider(
+          create: (context) => RegisterCubit(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: SplashScreen.id,
