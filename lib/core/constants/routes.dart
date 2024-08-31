@@ -6,7 +6,7 @@ import '../../view/register_screen.dart';
 
 Map<String, Widget Function(BuildContext)> routes = {
   SplashScreen.id : (context) => const SplashScreen(),
-  LoginScreen.id : (context) => const LoginScreen(),
+  LoginScreen.id : (context) =>  LoginScreen(),
   RegisterScreen.id : (context) => const RegisterScreen(),
   ChatScreen.id : (context) => const ChatScreen(),
 };
