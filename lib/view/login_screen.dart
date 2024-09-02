@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:scholar_chat/core/constants/theme.dart';
 import 'package:scholar_chat/core/widgets/custom_text_form_field.dart';
+import 'package:scholar_chat/cubit/chat_cubit/chat_cubit.dart';
 import 'package:scholar_chat/cubit/login_cubit/login_cubit.dart';
 import 'package:scholar_chat/view/register_screen.dart';
 import '../core/helpers/show_snackbar.dart';
@@ -35,6 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
         else if(state is LoginSuccess){
           isAsyncCall = false;
+          BlocProvider.of<ChatCubit>(context).getMessage();
           Navigator.pushReplacementNamed(context, ChatScreen.id, arguments: email);
           showSnackBar(context, "Success Login", Colors.green);
         }
