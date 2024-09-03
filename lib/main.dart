@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scholar_chat/bloc/auth_bloc.dart';
 import 'package:scholar_chat/core/constants/routes.dart';
 import 'package:scholar_chat/cubit/chat_cubit/chat_cubit.dart';
+import 'package:scholar_chat/simple_bloc_observer.dart';
 import 'package:scholar_chat/view/splash_screen.dart';
 import 'firebase_options.dart';
 
@@ -12,7 +13,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Bloc.observer = SimpleBlocObserver();
   runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
