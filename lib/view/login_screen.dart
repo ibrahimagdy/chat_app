@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:scholar_chat/bloc/auth_bloc.dart';
 import 'package:scholar_chat/core/constants/theme.dart';
 import 'package:scholar_chat/core/widgets/custom_text_form_field.dart';
 import 'package:scholar_chat/cubit/chat_cubit/chat_cubit.dart';
-import 'package:scholar_chat/cubit/login_cubit/login_cubit.dart';
 import 'package:scholar_chat/view/register_screen.dart';
 import '../core/helpers/show_snackbar.dart';
 import 'chat_screen.dart';
@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context).size;
-    return BlocConsumer<LoginCubit, LoginState>(
+    return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is LoginLoading){
           isAsyncCall = true;
@@ -112,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     GestureDetector(
                       onTap: () {
                         if(formKey.currentState!.validate()){
-                          BlocProvider.of<LoginCubit>(context).login(email: email!, password: password!);
+                          BlocProvider.of<AuthBloc>(context).add(AuthLogin(email: email!, password: password!));
                         }
                       },
                       child: Container(
